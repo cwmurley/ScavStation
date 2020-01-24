@@ -976,7 +976,7 @@
 "dm" = (
 /obj/item/stool/padded,
 /obj/effect/landmark/start{
-	name = "Junior Researcher"
+	name = "Ivenmoth Supervisor"
 	},
 /turf/simulated/floor/tiled,
 /area/ship/scrap/crew/saloon)
@@ -2278,7 +2278,7 @@
 "fV" = (
 /obj/structure/bed/chair/office/light,
 /obj/effect/landmark/start{
-	name = "Head Doctor"
+	name = "Doctor"
 	},
 /turf/simulated/floor/tiled/white,
 /area/ship/scrap/crew/medbay)
@@ -7105,7 +7105,7 @@
 	},
 /obj/structure/bed/padded,
 /obj/effect/landmark/start{
-	name = "Head Engineer"
+	name = "Engineer"
 	},
 /turf/simulated/floor/tiled/techfloor,
 /area/ship/scrap/maintenance/engineering)
