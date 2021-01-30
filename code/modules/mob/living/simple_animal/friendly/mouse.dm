@@ -14,8 +14,8 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	maxHealth = 5
 	health = 5
+	maxHealth = 5
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -37,6 +37,10 @@
 	skin_material = /decl/material/solid/skin/fur
 
 	var/body_color //brown, gray and white, leave blank for random
+
+/mob/living/simple_animal/mouse/eaten_by_slime()
+	new /obj/item/remains/mouse(get_turf(src))
+	. = ..()
 
 /mob/living/simple_animal/mouse/Life()
 	. = ..()

@@ -21,6 +21,7 @@
 			set_species(new_species,1)
 		else
 			set_species()
+		name = species.get_default_name()
 
 	var/decl/cultural_info/culture = SSlore.get_culture(cultural_info[TAG_CULTURE])
 	if(culture)

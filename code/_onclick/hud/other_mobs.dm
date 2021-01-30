@@ -1,4 +1,4 @@
-/mob/living/carbon/slime
+/mob/living/slime
 	hud_type = /datum/hud/slime
 
 /datum/hud/slime/FinalizeInstantiation()

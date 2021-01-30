@@ -2,9 +2,11 @@
 	key = "nomood"
 	var/mood
 
-/decl/emote/slime/do_extra(var/mob/living/carbon/slime/user)
-	user.mood = mood
-	user.regenerate_icons()
+/decl/emote/slime/do_extra(var/mob/living/slime/user)
+	var/datum/ai/slime/slime_ai = user.ai
+	if(istype(slime_ai))
+		slime_ai.mood = mood
+		user.regenerate_icons()
 
 /decl/emote/slime/check_user(var/atom/user)
 	return isslime(user)

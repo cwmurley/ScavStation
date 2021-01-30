@@ -720,3 +720,8 @@ var/list/intents = list(I_HELP,I_DISARM,I_GRAB,I_HURT)
 	result[2] = ainvis
 
 	return result
+
+/mob/proc/currently_being_eaten_by_a_slime(var/mob/living/slime/feeder_check)
+	for(var/mob/living/slime/M in range(1, src))
+		if(feeder_check != M && M.feeding_on?.resolve() == src)
+			return M

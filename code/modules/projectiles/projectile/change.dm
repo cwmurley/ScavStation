@@ -52,7 +52,7 @@
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")
-				new_mob = new /mob/living/carbon/slime(M.loc)
+				new_mob = new /mob/living/slime(M.loc)
 				new_mob.universal_speak = TRUE
 			else
 				var/mob/living/carbon/human/H

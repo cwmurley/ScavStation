@@ -155,18 +155,18 @@
 	for(var/t in organs)
 		qdel(t)
 
-	var/mob/living/carbon/slime/new_slime
+	var/mob/living/slime/new_slime
 	if(reproduce)
 		var/number = pick(14;2,3,4)	//reproduce (has a small chance of producing 3 or 4 offspring)
 		var/list/babies = list()
 		for(var/i=1,i<=number,i++)
-			var/mob/living/carbon/slime/M = new/mob/living/carbon/slime(loc)
+			var/mob/living/slime/M = new/mob/living/slime(loc)
 			M.set_nutrition(round(nutrition/number))
 			step_away(M,src)
 			babies += M
 		new_slime = pick(babies)
 	else
-		new_slime = new /mob/living/carbon/slime(loc)
+		new_slime = new /mob/living/slime(loc)
 		if(adult)
 			new_slime.is_adult = 1
 		else

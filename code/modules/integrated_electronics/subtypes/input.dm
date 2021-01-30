@@ -241,17 +241,18 @@
 	power_draw_per_use = 80
 
 /obj/item/integrated_circuit/input/slime_scanner/do_work()
-	var/mob/living/carbon/slime/T = get_pin_data_as_type(IC_INPUT, 1, /mob/living/carbon/slime)
+	var/mob/living/slime/T = get_pin_data_as_type(IC_INPUT, 1, /mob/living/slime)
 	if(!isslime(T)) //Invalid input
 		return
 	if(T in view(get_turf(src))) // Like medbot's analyzer it can be used in range..
 
-		set_pin_data(IC_OUTPUT, 1, T.colour)
+		var/decl/slime_colour/slime_data = decls_repository.get_decl(T.slime_type)
+		set_pin_data(IC_OUTPUT, 1, slime_data.name)
 		set_pin_data(IC_OUTPUT, 2, T.is_adult)
 		set_pin_data(IC_OUTPUT, 3, T.nutrition/T.get_max_nutrition())
 		set_pin_data(IC_OUTPUT, 4, T.powerlevel)
 		set_pin_data(IC_OUTPUT, 5, round(T.health/T.maxHealth,0.01)*100)
-		set_pin_data(IC_OUTPUT, 6, T.GetMutations())
+		set_pin_data(IC_OUTPUT, 6, slime_data.descendants?.Copy())
 		set_pin_data(IC_OUTPUT, 7, T.mutation_chance)
 		set_pin_data(IC_OUTPUT, 8, T.cores)
 		set_pin_data(IC_OUTPUT, 9, T.amount_grown/SLIME_EVOLUTION_THRESHOLD)
