@@ -27,3 +27,17 @@
 			I.has_embedded()
 
 	return 1
+
+var/list/slime_pain_messages = list(
+	"You can feel your body becoming weak!",
+	"You feel like you're about to die!",
+	"You feel every part of your body screaming in agony!",
+	"A low, rolling pain passes through your body!",
+	"Your body feels as if it's falling apart!",
+	"You feel extremely weak!",
+	"A sharp, deep pain bathes every inch of your body!"
+)
+
+/mob/living/carbon/handle_additional_slime_effects()
+	if(can_feel_pain())
+		to_chat(src, SPAN_DANGER(pick(global.slime_pain_messages)))

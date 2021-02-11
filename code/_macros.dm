@@ -89,7 +89,7 @@
 
 #define issilicon(A) istype(A, /mob/living/silicon)
 
-#define isslime(A) istype(A, /mob/living/carbon/slime)
+#define isslime(A) istype(A, /mob/living/slime)
 
 #define isunderwear(A) istype(A, /obj/item/underwear)
 

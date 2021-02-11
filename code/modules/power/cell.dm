@@ -288,16 +288,15 @@
 	name = "potato battery"
 	desc = "A rechargable starch based power cell."
 	origin_tech = "{'powerstorage':1}"
-	icon = 'icons/obj/power.dmi' //'icons/obj/harvest.dmi'
-	icon_state = "potato_cell" //"potato_battery"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "potato_cell"
 	maxcharge = 20
-
 
 /obj/item/cell/slime
 	name = "charged slime core"
 	desc = "A yellow slime core that crackles with power."
 	origin_tech = "{'powerstorage':2,'biotech':4}"
-	icon = 'icons/mob/simple_animal/slimes.dmi' //'icons/obj/harvest.dmi'
-	icon_state = "yellow slime extract" //"potato_battery"
+	icon =  'icons/mob/slimes/slime_extract_yellow.dmi'
+	icon_state = ICON_STATE_WORLD
 	maxcharge = 200
-	matter = null
+	material = /decl/material/liquid/slimejelly

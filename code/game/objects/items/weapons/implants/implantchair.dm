@@ -73,12 +73,12 @@
 /obj/machinery/implantchair/attackby(var/obj/item/G, var/mob/user)
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/grab = G
-		if(!ismob(grab.affecting))
+		var/mob/grabbed = grab.get_affecting_mob()
+		if(!istype(grabbed))
 			return
-		for(var/mob/living/carbon/slime/M in range(1, grab.affecting))
-			if(M.Victim == grab.affecting)
-				to_chat(usr, "[grab.affecting.name] will not fit into the [src.name] because they have a slime latched onto their head.")
-				return
+		if(grabbed.currently_being_eaten_by_a_slime())
+			to_chat(usr, "\The [grabbed] will not fit into \the [src] because they are currently being eaten by a slime.")
+			return
 		var/mob/M = grab.affecting
 		if(put_mob(M))
 			qdel(G)

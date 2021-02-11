@@ -16,7 +16,7 @@
 	var/list/valid_targets = list(
 		/mob/living/carbon/human,
 		/mob/living/simple_animal,
-		/mob/living/carbon/slime
+		/mob/living/slime
 	)
 
 /obj/item/scanner/xenobio/is_valid_scan_target(atom/O)
@@ -75,9 +75,10 @@
 				. += "New xenofauna species discovered!"
 				break
 	else if(isslime(target))
-		var/mob/living/carbon/slime/T = target
+		var/mob/living/slime/T = target
+		var/decl/slime_colour/slime_data = decls_repository.get_decl(T.slime_type)
 		. += "Slime scan result for \the [T]:"
-		. += "[T.colour] [T.is_adult ? "adult" : "baby"] slime"
+		. += "[slime_data.name] [T.is_adult ? "adult" : "baby"] slime"
 		. += "Nutrition:\t[T.nutrition]/[T.get_max_nutrition()]"
 		if(T.nutrition < T.get_starve_nutrition())
 			. += "<span class='alert'>Warning:\tthe slime is starving!</span>"
@@ -86,21 +87,20 @@
 		. += "Electric charge strength:\t[T.powerlevel]"
 		. += "Health:\t[round((T.health * 100) / T.maxHealth)]%"
 
-		var/list/mutations = T.GetMutations()
-
+		var/list/mutations = slime_data.descendants?.Copy()
 		if(!mutations.len)
 			. += "This slime will never mutate."
 		else
 			var/list/mutationChances = list()
 			for(var/i in mutations)
-				if(i == T.colour)
+				if(i == T.slime_type)
 					continue
 				if(mutationChances[i])
 					mutationChances[i] += T.mutation_chance / mutations.len
 				else
 					mutationChances[i] = T.mutation_chance / mutations.len
 
-			var/list/mutationTexts = list("[T.colour] ([100 - T.mutation_chance]%)")
+			var/list/mutationTexts = list("[slime_data.name] ([100 - T.mutation_chance]%)")
 			for(var/i in mutationChances)
 				mutationTexts += "[i] ([mutationChances[i]]%)"
 

@@ -21,3 +21,7 @@
 	bone_amount = 1
 	skin_amount = 1
 	skin_material = /decl/material/solid/skin/lizard
+
+/mob/living/simple_animal/lizard/eaten_by_slime()
+	new /obj/item/remains/lizard(get_turf(src))
+	. = ..()

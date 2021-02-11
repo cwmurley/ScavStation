@@ -40,8 +40,8 @@ var/list/ventcrawl_machinery = list(
 		remove_ventcrawl()
 		add_ventcrawl(loc)
 
-/mob/living/carbon/slime/can_ventcrawl()
-	if(Victim)
+/mob/living/slime/can_ventcrawl()
+	if(feeding_on)
 		to_chat(src, SPAN_WARNING("You cannot ventcrawl while feeding."))
 		return FALSE
 	. = ..()

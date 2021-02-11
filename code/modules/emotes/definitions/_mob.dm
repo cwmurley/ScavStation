@@ -173,7 +173,7 @@
 		/decl/emote/audible/synth/security/halt
 		)
 
-/mob/living/carbon/slime
+/mob/living/slime
 	default_emotes = list(
 		/decl/emote/audible/moan,
 		/decl/emote/visible/twitch,

@@ -443,3 +443,17 @@ meteor_act
 	if (was_burned)
 		fire_act(air, temperature)
 	return FALSE
+
+/mob/living/carbon/human/handle_additional_slime_effects()
+	custom_pain(pick(global.slime_pain_messages),100)
+
+/mob/living/carbon/human/eaten_by_slime()
+	var/chomp_loc = loc
+	if(length(organs) > 1)
+		var/obj/item/organ/external/E = pick(organs)
+		if(E.limb_flags & ORGAN_FLAG_CAN_AMPUTATE)
+			E.dismember(FALSE, DISMEMBER_METHOD_ACID)
+			. = 1
+	if((QDELETED(src) || length(organs) <= 1) && species.remains_type)
+		new species.remains_type(get_turf(chomp_loc))
+		. = ..()

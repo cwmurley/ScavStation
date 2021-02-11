@@ -77,9 +77,6 @@ default behaviour is:
 				forceMove(tmob.loc)
 				tmob.forceMove(oldloc)
 				now_pushing = 0
-				for(var/mob/living/carbon/slime/slime in view(1,tmob))
-					if(slime.Victim == tmob)
-						slime.UpdateFeed()
 				return
 
 			if(!can_move_mob(tmob, 0, 0))
@@ -528,17 +525,10 @@ default behaviour is:
 /mob/living/Move(a, b, flag)
 	if (buckled)
 		return
-
 	. = ..()
-
 	handle_grabs_after_move()
-
 	if (s_active && !( s_active in contents ) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-	if(update_slimes)
-		for(var/mob/living/carbon/slime/M in view(1,src))
-			M.UpdateFeed()
 
 /mob/living/verb/resist()
 	set name = "Resist"
@@ -889,6 +879,29 @@ default behaviour is:
 /mob/living/proc/get_ingested_reagents()
 	return reagents
 
+/mob/living/proc/handle_additional_slime_effects()
+	return
+
+/mob/living/proc/slime_feed_act(var/mob/living/slime/attacker)
+	var/protection = (1 - get_blocked_ratio(null, TOX, damage_flags = DAM_DISPERSED | DAM_BIO))
+	adjustCloneLoss((attacker.is_adult ? 10 : 5) * protection)
+	adjustToxLoss(1 * protection)
+	if(health <= 0)
+		adjustToxLoss(1 * protection)
+	if(prob(15) && client)
+		handle_additional_slime_effects()
+	. = 15 * protection
+	if(stat == DEAD || getCloneLoss() >= maxHealth)
+		eaten_by_slime()
+
+/mob/living/proc/eaten_by_slime()
+	if(QDELETED(src))
+		return
+	new /obj/effect/decal/cleanable/mucus(get_turf(src))
+	dump_contents()
+	qdel(src)
+	. = rand(2,3)
+
 /mob/living/proc/get_species()
 	return
 
@@ -903,3 +916,4 @@ default behaviour is:
 
 /mob/living/proc/get_adjusted_metabolism(metabolism)
 	return metabolism
+

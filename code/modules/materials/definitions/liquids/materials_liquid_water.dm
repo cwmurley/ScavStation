@@ -104,13 +104,18 @@
 	..()
 	if(!isslime(M) && alien != IS_SLIME)
 		return
-	M.adjustToxLoss(10 * removed)	// Babies have 150 health, adults have 200; So, 15 units and 20
-	var/mob/living/carbon/slime/S = M
-	if(!S.client && istype(S))
-		if(S.Target) // Like cats
-			S.Target = null
-		if(S.Victim)
-			S.Feedstop()
+	M.adjustToxLoss(10 * removed)
+	var/mob/living/slime/S = M
+	if(istype(S) && istype(S.ai, /datum/ai/slime))
+		var/datum/ai/slime/slime_ai = S.ai
+		if(slime_ai.current_target)
+			slime_ai.current_target = null
+		S.set_feeding_on()
 	if(LAZYACCESS(M.chem_doses, type) == removed)
-		M.visible_message("<span class='warning'>[S]'s flesh sizzles where the water touches it!</span>", "<span class='danger'>Your flesh burns in the water!</span>")
+		M.visible_message( \
+			SPAN_DANGER("\The [S]'s flesh sizzles where \the [name] touches it!"), \
+			SPAN_DANGER("Your flesh is burned by \the [name]!"))
 		M.confused = max(M.confused, 2)
+		var/datum/ai/slime/slime_ai = M.ai
+		if(istype(slime_ai))
+			slime_ai.attacked = max(slime_ai.attacked, rand(7,10)) // angery
